@@ -116,7 +116,10 @@ func main() {
 
 	if *githubGists {
 		gistData := githubPatches.GetLast100Gists()
-		parsedGists, _ := githubPatches.ParseGistData(gistData)
+		parsedGists, err := githubPatches.ParseGistData(gistData)
+		if err != nil {
+			log.Fatalf("Error parsing GitHub gists: %v", err)
+		}
 
 		var gists []string
 		for _, gist := range parsedGists {
