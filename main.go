@@ -42,8 +42,11 @@ func main() {
 				log.Fatalf("Please install Docker to use Selenium mode!")
 			}
 			if !checkImageBuilt() {
-				log.Fatalf("Attempting to build Selenium testing image from Dockerfile...")
-				exec.Command("docker", "build", "-t", "selenium-integration", ".")
+				log.Println("Attempting to build Selenium testing image from Dockerfile...")
+				err := exec.Command("docker", "build", "-t", "selenium-integration", ".").Run()
+				if err != nil {
+					log.Fatalf("Failed to build Docker image: %v", err)
+				}
 			}
 			successfulUrls = []string{scrapeWithSelenium(*URL)}
 		} else {
