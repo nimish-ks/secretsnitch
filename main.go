@@ -133,7 +133,10 @@ func main() {
 
 	if *phishtank {
 		savePhishtankDataset()
-		urls, _ := readLines(phishtankURLCache)
+		urls, err := readLines(phishtankURLCache)
+		if err != nil {
+			log.Fatalf("Error reading phishtank URLs: %v", err)
+		}
 		successfulUrls := fetchFromUrlList(urls)
 		ScanFiles(successfulUrls)
 		return
