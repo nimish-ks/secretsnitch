@@ -96,7 +96,7 @@ func main() {
 
 		successfulUrls := fetchFromUrlList(patches)
 		ScanFiles(successfulUrls)
-		os.RemoveAll(githubPatches.GithubCacheDir)
+		defer os.RemoveAll(githubPatches.GithubCacheDir)
 		return
 	}
 
@@ -110,7 +110,7 @@ func main() {
 
 		successfulUrls := fetchFromUrlList(patches)
 		ScanFiles(successfulUrls)
-		os.RemoveAll(gitlabPatches.GitlabCacheDir)
+		defer os.RemoveAll(gitlabPatches.GitlabCacheDir)
 		return
 	}
 
