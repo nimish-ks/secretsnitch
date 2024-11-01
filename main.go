@@ -80,7 +80,11 @@ func main() {
 		var patches []string
 
 		for _, chunk := range chunks {
-			events, _ := githubPatches.ParseGitHubCommits(githubPatches.GithubCacheDir + chunk)
+			events, err := githubPatches.ParseGitHubCommits(githubPatches.GithubCacheDir + chunk)
+			if err != nil {
+				log.Printf("Error parsing GitHub commits from %s: %v", chunk, err)
+				continue
+			}
 
 			for _, event := range events {
 				for _, commit := range event.Payload.Commits {
