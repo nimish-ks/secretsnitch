@@ -72,7 +72,10 @@ func main() {
 
 	if *github {
 		githubPatches.GetCommitsInRange(githubPatches.GithubCacheDir, *from, *to, false)
-		chunks, _ := listFiles(githubPatches.GithubCacheDir)
+		chunks, err := listFiles(githubPatches.GithubCacheDir)
+		if err != nil {
+			log.Fatalf("Error listing GitHub cache files: %v", err)
+		}
 
 		var patches []string
 
