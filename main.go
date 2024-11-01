@@ -57,7 +57,10 @@ func main() {
 	}
 
 	if *directory != "" {
-		files, _ := getAllFiles(*directory)
+		files, err := getAllFiles(*directory)
+		if err != nil {
+			log.Fatalf("Error getting files from directory: %v", err)
+		}
 		ScanFiles(files)
 		return
 	}
